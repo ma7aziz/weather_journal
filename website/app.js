@@ -20,7 +20,7 @@ const updateUI = async () => {
   document.getElementById(
     "content"
   ).innerHTML = `<p><span class="title">Weather Description:</span> ${data.description}°C</p>
-  <p><span class="title">Your Feeling:</span> ${data.feeling}°C</p>`;
+  <p><span class="title">Your Feeling:</span> ${data.feeling}</p>`;
 };
 
 const getWeather = async (url) => {
@@ -53,14 +53,19 @@ const postData = async (url = "", weatherData = {}) => {
 let generateClick = (e) => {
   e.preventDefault();
   const zipCode = document.getElementById("zip").value;
-  const feeling = document.getElementById("feelings").value;
+  // const userInput = document.getElementById("feelings").value;
   const APIKEY = "c79290d2ef6acac741d627ae23ff67e9";
   const url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${APIKEY}&units=metric`;
   //   validate user input
+  if (document.getElementById("feelings").value.length == 0) {
+    userInput = "you didn't submit your feeling ";
+  } else {
+    userInput = document.getElementById("feelings").value;
+  }
   getWeather(url).then((data) => {
     postData("/postData", {
       date: newDate,
-      feeling: feeling,
+      feeling: userInput,
       temprature: Math.round(data.main.temp),
       city: data.name,
       description: data.weather[0].description,
