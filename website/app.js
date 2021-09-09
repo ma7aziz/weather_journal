@@ -10,6 +10,9 @@ const updateUI = async () => {
   let response = await fetch("/getData");
   let data = await response.json();
   document.getElementById(
+    "city"
+  ).innerHTML = `<p><span class="title">City:</span> ${data.city}</p>`;
+  document.getElementById(
     "temp"
   ).innerHTML = `<p><span class="title">Current Temprature:</span> ${data.temprature}°C</p>`;
 
@@ -25,14 +28,22 @@ const updateUI = async () => {
 
 const getWeather = async (url) => {
   let response = await fetch(url);
+
   try {
-    let data = await response.json();
-    return data;
+    if (response.status == 404) {
+      document.getElementById(
+        "content"
+      ).innerHTML = `<p>City Not Found , Please submit a valid zip code !</p>`;
+    } else {
+      let data = await response.json();
+      return data;
+    }
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
   }
 };
 
+// post data to local api
 const postData = async (url = "", weatherData = {}) => {
   const response = await fetch(url, {
     method: "POST",
@@ -42,7 +53,6 @@ const postData = async (url = "", weatherData = {}) => {
   });
   try {
     const newData = await response.json();
-    console.log(newData);
     return newData;
   } catch (err) {
     console.log(`Error: ${err}`);
@@ -53,7 +63,6 @@ const postData = async (url = "", weatherData = {}) => {
 let generateClick = (e) => {
   e.preventDefault();
   const zipCode = document.getElementById("zip").value;
-  // const userInput = document.getElementById("feelings").value;
   const APIKEY = "c79290d2ef6acac741d627ae23ff67e9";
   const url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${APIKEY}&units=metric`;
   //   validate user input

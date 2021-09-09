@@ -5,7 +5,6 @@ projectData = {};
 const express = require("express");
 const app = express();
 const port = 3000;
-let getData = require("./getData");
 //  require body-parser
 const bodyParser = require("body-parser");
 // Start up an instance of app
@@ -27,7 +26,6 @@ app.listen(port, () => {
 });
 
 app.post("/postData", (req, res) => {
-  console.log("body", req.body);
   newData = {
     temprature: req.body.temprature,
     date: req.body.date,
