@@ -5,7 +5,7 @@ projectData = {};
 const express = require("express");
 const app = express();
 const port = 3000;
-
+let getData = require("./getData");
 //  require body-parser
 const bodyParser = require("body-parser");
 // Start up an instance of app
@@ -16,11 +16,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
-
+const cors = require("cors");
+app.use(cors());
 // Initialize the main project folder
 app.use(express.static("website"));
 
 // Setup Server
 app.listen(port, () => {
   console.log(`Server is listining on port ${port} !`);
+});
+
+app.post("/post_data", (req, res) => {
+  newData = {
+    temprature: req.body.temprature,
+    date: req.body.date,
+    feeling: req.body.feeling,
+  };
+  projectData = newData;
+});
+
+app.get("/getdata", (req, res) => {
+  res.send(projectData);
 });
