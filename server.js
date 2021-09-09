@@ -26,13 +26,17 @@ app.listen(port, () => {
   console.log(`Server is listining on port ${port} !`);
 });
 
-app.post("/post_data", (req, res) => {
+app.post("/postData", (req, res) => {
+  console.log("body", req.body);
   newData = {
     temprature: req.body.temprature,
     date: req.body.date,
     feeling: req.body.feeling,
+    city: req.body.city,
+    description: req.body.description,
   };
   projectData = newData;
+  res.send(projectData);
 });
 
 app.get("/getdata", (req, res) => {
