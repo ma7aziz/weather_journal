@@ -9,6 +9,7 @@ let generateBtn = document.getElementById("generate");
 const updateUI = async () => {
   let response = await fetch("/getData");
   let data = await response.json();
+
   document.getElementById(
     "city"
   ).innerHTML = `<p><span class="title">City:</span> ${data.city}</p>`;
@@ -22,7 +23,7 @@ const updateUI = async () => {
 
   document.getElementById(
     "content"
-  ).innerHTML = `<p><span class="title">Weather Description:</span> ${data.description}°C</p>
+  ).innerHTML = `<p><span class="title">Weather Description:</span> ${data.description}.<img width="30px" height="30px" src="http://openweathermap.org/img/wn/${data.icon}@2x.png"></p>
   <p><span class="title">Your Feeling:</span> ${data.feeling}</p>`;
 };
 
@@ -62,6 +63,7 @@ const postData = async (url = "", weatherData = {}) => {
 // onclick event handler
 let generateClick = (e) => {
   e.preventDefault();
+
   const zipCode = document.getElementById("zip").value;
   const APIKEY = "c79290d2ef6acac741d627ae23ff67e9";
   const url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${APIKEY}&units=metric`;
@@ -78,6 +80,7 @@ let generateClick = (e) => {
       temprature: Math.round(data.main.temp),
       city: data.name,
       description: data.weather[0].description,
+      icon: data.weather[0].icon,
     }).then(updateUI());
   });
 };

@@ -32,6 +32,7 @@ app.post("/postData", (req, res) => {
     feeling: req.body.feeling,
     city: req.body.city,
     description: req.body.description,
+    icon: req.body.icon,
   };
   projectData = newData;
   res.send(projectData);

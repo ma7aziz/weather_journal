@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    font-size: 16px;
+    font-size: 20px;
     font-family: "Oswald", sans-serif;
     font-weight: 500;
     background-color: #8EC5FC;
@@ -12,12 +12,13 @@ body {
 
 input[type=text],
 textarea {
-    padding: 5px;
+    padding: 10px;
     display: block;
     margin: 0 auto;
     outline: none;
     border: none;
-    border-radius: 5px
+    border-radius: 10px;
+    text-align: center;
 }
 
 .holder {
@@ -30,7 +31,8 @@ button {
     color: #fff;
     border: none;
     border-radius: 5px;
-    background-image: linear-gradient(to right, #2b5876 0%, #4e4376 51%, #2b5876 100%)
+    background-image: linear-gradient(to right, #2b5876 0%, #4e4376 51%, #2b5876 100%);
+    cursor: pointer
 }
 
 div.entry {
