@@ -7,12 +7,20 @@ let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 let generateBtn = document.getElementById("generate");
 
 const updateUI = async () => {
-  let content = document.getElementById("content");
   let response = await fetch("/getData");
   let data = await response.json();
-  content.innerHTML = `<p>city : ${data.city}</p>
-  <p>Temprature : ${data.temprature} C</p>
-  <p>date : ${data.date}</p>`;
+  document.getElementById(
+    "temp"
+  ).innerHTML = `<p><span class="title">Current Temprature:</span> ${data.temprature}°C</p>`;
+
+  document.getElementById(
+    "date"
+  ).innerHTML = `<p><span class="title">date: </span> ${data.date}</p>`;
+
+  document.getElementById(
+    "content"
+  ).innerHTML = `<p><span class="title">Weather Description:</span> ${data.description}°C</p>
+  <p><span class="title">Your Feeling:</span> ${data.feeling}°C</p>`;
 };
 
 const getWeather = async (url) => {
@@ -49,19 +57,15 @@ let generateClick = (e) => {
   const APIKEY = "c79290d2ef6acac741d627ae23ff67e9";
   const url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${APIKEY}&units=metric`;
   //   validate user input
-  if (zipCode && feeling) {
-    getWeather(url).then((data) => {
-      postData("/postData", {
-        date: newDate,
-        feeling: feeling,
-        temprature: Math.round(data.main.temp),
-        city: data.name,
-        description: data.weather[0].description,
-      }).then(updateUI());
-    });
-  } else {
-    // add invalid class to inputs
-  }
+  getWeather(url).then((data) => {
+    postData("/postData", {
+      date: newDate,
+      feeling: feeling,
+      temprature: Math.round(data.main.temp),
+      city: data.name,
+      description: data.weather[0].description,
+    }).then(updateUI());
+  });
 };
 
 generateBtn.addEventListener("click", generateClick);
