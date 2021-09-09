@@ -62,8 +62,6 @@ const postData = async (url = "", weatherData = {}) => {
 
 // onclick event handler
 let generateClick = (e) => {
-  e.preventDefault();
-
   const zipCode = document.getElementById("zip").value;
   const APIKEY = "c79290d2ef6acac741d627ae23ff67e9";
   const url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${APIKEY}&units=metric`;
