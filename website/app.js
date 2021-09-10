@@ -2,8 +2,7 @@
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
-
+let newDate = d.getMonth() + 1 + "." + d.getDate() + "." + d.getFullYear();
 let generateBtn = document.getElementById("generate");
 
 const updateUI = async () => {
@@ -56,7 +55,7 @@ const postData = async (url = "", weatherData = {}) => {
     const newData = await response.json();
     return newData;
   } catch (err) {
-    console.log(`Error: ${err}`);
+    console.log(`Error: ${err} !`);
   }
 };
 
